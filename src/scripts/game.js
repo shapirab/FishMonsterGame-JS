@@ -1,10 +1,12 @@
+import Projectile from "./models/effectModels/projectile.js";
 import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
 
 export default class Game{
     constructor(){
         this.player = new Player(this); 
-        this.input = new InputHandler(this);     
+        this.input = new InputHandler(this);
+        this.projectile = new Projectile(this);   
     }
 
     handleInputs(){
@@ -29,9 +31,11 @@ export default class Game{
     update(){
         this.handleInputs();
         this.player.update();
+        this.projectile.update();
     }
 
     draw(ctx){
         this.player.draw(ctx);
+        this.projectile.draw(ctx);
     }
 }
