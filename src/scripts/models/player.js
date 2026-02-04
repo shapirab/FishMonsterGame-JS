@@ -11,9 +11,14 @@ export default class Player{
             x: 0,
             y: 0
         }
+
+        this.maxSpeed = 2;
     }
 
-    update(deltatime){}
+    update(){
+       this.position.x += this.speed.x;
+       this.position.y += this.speed.y;
+    }
 
     draw(ctx){
         ctx.strokeStyle = 'red';

@@ -10,11 +10,12 @@ window.addEventListener('load', () => {
 
     let lastTime = 0;
     function animate(timeStemp){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         let deltatime = timeStemp - lastTime;
         lastTime = timeStemp;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(animate);
+        game.update();
         game.draw(ctx);
+        requestAnimationFrame(animate);
     }
 
     animate(0);
