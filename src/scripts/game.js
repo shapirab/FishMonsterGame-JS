@@ -3,10 +3,11 @@ import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
 
 export default class Game{
-    constructor(){
+    constructor(width, height){
+        this.width = width;
+        this.height = height;
         this.player = new Player(this); 
         this.input = new InputHandler(this);
-        this.projectile = new Projectile(this);   
     }
 
     handleInputs(){
@@ -26,16 +27,24 @@ export default class Game{
             this.player.speed.x = 0;
             this.player.speed.y = 0;
         }
+
+        if(this.input.keys.space.pressed){
+            this.player.shoot();
+        }
     }
 
     update(){
         this.handleInputs();
         this.player.update();
-        this.projectile.update();
+        this.player.projectiles.forEach((projectile, index) => {
+            projectile.update();         
+        });
     }
 
     draw(ctx){
         this.player.draw(ctx);
-        this.projectile.draw(ctx);
+        this.player.projectiles.forEach(projectile => {
+            projectile.draw(ctx);
+        });
     }
 }

@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     canvas.height = 700;
     let ctx = canvas.getContext('2d');
 
-    const game = new Game();   
+    const game = new Game(canvas.width, canvas.height);   
 
     let lastTime = 0;
     function animate(timeStemp){
