@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         let deltatime = timeStemp - lastTime;
         lastTime = timeStemp;
-        game.update();
+        game.update(deltatime);
         game.draw(ctx);
         requestAnimationFrame(animate);
     }

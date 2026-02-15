@@ -1,4 +1,5 @@
 import Projectile from "./models/effectModels/projectile.js";
+import { Angler_1 } from "./models/enemy.js";
 import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
 
@@ -8,6 +9,10 @@ export default class Game{
         this.height = height;
         this.player = new Player(this); 
         this.input = new InputHandler(this);
+
+        this.enemies = [];
+        this.enemyTimer = 0;
+        this.enemyInterval = 1000;
     }
 
     handleInputs(){
@@ -33,12 +38,25 @@ export default class Game{
         }
     }
 
-    update(){
+    addEnemy(deltatime){
+        if(this.enemyTimer < this.enemyInterval){
+            this.enemyTimer += deltatime;
+        }
+        else{
+            this.enemies.push(new Angler_1(this));
+            this.enemyTimer = 0;
+        }
+    }
+
+    update(deltatime){
         this.handleInputs();
         this.player.update();
         this.player.projectiles.forEach((projectile, index) => {
             projectile.update();         
         });
+        this.addEnemy(deltatime);
+        this.enemies.forEach(enemy => enemy.update());
+        this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
     }
 
     draw(ctx){
@@ -46,5 +64,7 @@ export default class Game{
         this.player.projectiles.forEach(projectile => {
             projectile.draw(ctx);
         });
+
+        this.enemies.forEach(enemy => enemy.draw(ctx));
     }
 }
