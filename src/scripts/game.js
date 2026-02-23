@@ -1,3 +1,4 @@
+import CollisionDetector from "./models/effectModels/collision.js";
 import Projectile from "./models/effectModels/projectile.js";
 import { Angler_1 } from "./models/enemy.js";
 import Player from "./models/player.js";
@@ -9,6 +10,7 @@ export default class Game{
         this.height = height;
         this.player = new Player(this); 
         this.input = new InputHandler(this);
+        this.collisionDetector = new CollisionDetector();
 
         this.enemies = [];
         this.enemyTimer = 0;
@@ -48,14 +50,27 @@ export default class Game{
         }
     }
 
+    handleEnemiesCollisionWithProjectiles(){
+        this.enemies.forEach(enemy => {
+            this.player.projectiles.forEach(projectile => {
+                if(this.collisionDetector.rectCollisionDetector(enemy, projectile)){
+                    enemy.markedForDeletion = true;
+                }
+            });
+        });
+    }
+
     update(deltatime){
         this.handleInputs();
+        this.handleEnemiesCollisionWithProjectiles();
         this.player.update();
-        this.player.projectiles.forEach((projectile, index) => {
-            projectile.update();         
+        this.player.projectiles.forEach((projectile) => {
+            projectile.update();    
         });
         this.addEnemy(deltatime);
-        this.enemies.forEach(enemy => enemy.update());
+        this.enemies.forEach(enemy => {
+            enemy.update();
+        });
         this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
     }
 
