@@ -60,9 +60,18 @@ export default class Game{
         });
     }
 
+    handlePlayerCollisionWithEnemy(){
+        this.enemies.forEach(enemy => {
+            if(this.collisionDetector.rectCollisionDetector(this.player, enemy)){
+                console.log('Player was damaged!');
+            }
+        });
+    }
+
     update(deltatime){
         this.handleInputs();
         this.handleEnemiesCollisionWithProjectiles();
+        this.handlePlayerCollisionWithEnemy();
         this.player.update();
         this.player.projectiles.forEach((projectile) => {
             projectile.update();    

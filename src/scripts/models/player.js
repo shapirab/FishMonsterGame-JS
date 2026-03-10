@@ -35,9 +35,26 @@ export default class Player{
         });
     }
 
+    checkBounderies(){
+        if(this.position.x < 0){
+            this.position.x = 0;
+        }
+        else if(this.position.x > this.game.width - this.width){
+            this.position.x = this.game.width - this.width;
+        }
+        else if(this.position.y < 0){
+            this.position.y = 0;
+        }
+
+        else if(this.position.y > this.game.height - this.height){
+            this.position.y = this.game.height - this.height;
+        }
+    }
+
     update(){
        this.position.x += this.speed.x;
        this.position.y += this.speed.y;
+       this.checkBounderies();
        this.clearProjectiles();
     }
 
