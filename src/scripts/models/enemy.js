@@ -9,7 +9,7 @@ export default class Enemy {
     this.markedForDeletion = false;
   }
 
-  update(deltatime) {
+  update() {
     this.position.x += this.speedX;
     if(this.position.x + this.width < 0){
       this.markedForDeletion = true;
