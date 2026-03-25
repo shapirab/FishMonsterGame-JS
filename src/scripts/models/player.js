@@ -13,10 +13,11 @@ export default class Player{
             x: 0,
             y: 0
         }
-
         this.maxSpeed = 2;
-
         this.projectiles = [];
+
+        this.image = playerImg;
+        console.log(this.image)
     }
 
     shoot(){
