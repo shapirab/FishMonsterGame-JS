@@ -3,8 +3,8 @@ import Projectile from "./effectModels/projectile.js";
 export default class Player{
     constructor(game){
         this.game = game;
-        this.width = 80;
-        this.height = 120;
+        this.width = 120;
+        this.height = 190;
         this.position = {
             x: 100,
             y: 100
@@ -17,7 +17,9 @@ export default class Player{
         this.projectiles = [];
 
         this.image = playerImg;
-        console.log(this.image)
+        this.frameX = 0;
+        this.frameY = 0;
+        this.maxFrame = 37;    
     }
 
     shoot(){
@@ -52,15 +54,26 @@ export default class Player{
         }
     }
 
+    animatePlayer(){
+        this.frameX++;
+        if(this.frameX >= this.maxFrame){
+            this.frameX = 0;
+        }
+    }
+
     update(){
        this.position.x += this.speed.x;
        this.position.y += this.speed.y;
        this.checkBounderies();
        this.clearProjectiles();
+
+       this.animatePlayer();
     }
 
     draw(ctx){
-        ctx.strokeStyle = 'red';
-        ctx.strokeRect(this.position.x, this.position.y, this.width, this.height);
+        // ctx.strokeStyle = 'red';
+        // ctx.strokeRect(this.position.x, this.position.y, this.width, this.height);
+        ctx.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, 
+            this.position.x, this.position.y, this.width, this.height);
     }
 }
