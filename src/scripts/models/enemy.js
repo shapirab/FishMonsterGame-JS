@@ -7,6 +7,15 @@ export default class Enemy {
     };
     this.speedX = Math.random() * -1.5 - 0.5;
     this.markedForDeletion = false;
+
+    this.frameX = 0;
+  }
+
+  animateEnemy(){
+    if(this.frameX > this.maxFrames){
+      this.frameX = 0;
+    }
+    this.frameX++;
   }
 
   update() {
@@ -14,17 +23,24 @@ export default class Enemy {
     if(this.position.x + this.width < 0){
       this.markedForDeletion = true;
     }
+    this.animateEnemy();
   }
 
   draw(ctx) {
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(this.position.x, this.position.y, this.width, this.height);
+    // ctx.strokeStyle = 'red';
+    // ctx.strokeRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.position.x, this.position.y, this.width, this.height);
   }
 }
 
 export class Angler_1 extends Enemy {
   constructor(game) {
     super(game);
+    this.image = angler1_EnemyImg;
+    this.maxFrames = 37;
+    this.frameY = Math.floor(Math.random() * 3);
+
+
     this.width = 228;
     this.height = 169;
     let percentageY = 0.95;
