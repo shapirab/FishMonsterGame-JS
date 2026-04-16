@@ -1,6 +1,6 @@
 import CollisionDetector from "./models/effectModels/collision.js";
 import Projectile from "./models/effectModels/projectile.js";
-import { Angler_1 } from "./models/enemy.js";
+import { Angler_1, Angler_2, LuckyFish } from "./models/enemy.js";
 import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
 
@@ -14,7 +14,7 @@ export default class Game{
 
         this.enemies = [];
         this.enemyTimer = 0;
-        this.enemyInterval = 1000;
+        this.enemyInterval = 1500;
     }
 
     handleInputs(){
@@ -45,8 +45,21 @@ export default class Game{
             this.enemyTimer += deltatime;
         }
         else{
-            this.enemies.push(new Angler_1(this));
+            this.pushNewEnemy();
             this.enemyTimer = 0;
+        }
+    }
+
+    pushNewEnemy(){
+        let chance = Math.random();
+        if(chance < 0.4){
+            this.enemies.push(new Angler_1(this));
+        }
+        else if(chance < 0.8){
+            this.enemies.push(new Angler_2(this));
+        }
+        else{
+            this.enemies.push(new LuckyFish(this));
         }
     }
 

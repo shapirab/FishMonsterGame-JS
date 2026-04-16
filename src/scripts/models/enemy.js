@@ -47,3 +47,33 @@ export class Angler_1 extends Enemy {
     this.position.y = Math.random() * (this.game.height * percentageY - this.height);
   }
 }
+
+export class Angler_2 extends Enemy {
+  constructor(game) {
+    super(game);
+    this.image = angler2_EnemyImg;
+    this.maxFrames = 37;
+    this.frameY = Math.floor(Math.random() * 2);
+
+
+    this.width = 213;
+    this.height = 165;
+    let percentageY = 0.95;
+    this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+  }
+}
+
+export class LuckyFish extends Enemy {
+  constructor(game) {
+    super(game);
+    this.image = lucky_EnemyImg;
+    this.maxFrames = 37;
+    this.frameY = Math.floor(Math.random() * 2);
+
+
+    this.width = 99;
+    this.height = 95;
+    let percentageY = 0.95;
+    this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+  }
+}
