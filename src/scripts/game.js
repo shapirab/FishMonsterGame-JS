@@ -3,6 +3,7 @@ import Projectile from "./models/effectModels/projectile.js";
 import { Angler_1, Angler_2, LuckyFish } from "./models/enemy.js";
 import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
+import UI from "./Operators/ui.js";
 
 export default class Game{
     constructor(width, height){
@@ -15,6 +16,7 @@ export default class Game{
         this.enemies = [];
         this.enemyTimer = 0;
         this.enemyInterval = 1500;
+        this.ui = new UI(this);
     }
 
     handleInputs(){
@@ -94,6 +96,7 @@ export default class Game{
             enemy.update();
         });
         this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+        this.score = 0;
     }
 
     draw(ctx){
@@ -103,5 +106,7 @@ export default class Game{
         });
 
         this.enemies.forEach(enemy => enemy.draw(ctx));
+
+        this.ui.draw(ctx);
     }
 }
