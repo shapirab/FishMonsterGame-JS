@@ -88,7 +88,6 @@ export default class Game{
     handlePlayerCollisionWithEnemy(){
         this.enemies.forEach(enemy => {
             if(this.collisionDetector.rectCollisionDetector(this.player, enemy)){
-                console.log('Player was damaged!');
                 enemy.markedForDeletion = true;
                 if(this.score <= 0){
                     this.gameOver = true;
@@ -105,6 +104,15 @@ export default class Game{
         if(this.gameTimer >= this.maxGameTimer){
             this.gameOver = true;
         }
+    }
+
+    resetGame(){
+        this.enemies = [];
+        this.enemyTimer = 0;
+        this.score = 0;
+
+        this.gameTimer = 0;
+        this.gameOver = false;
     }
 
     update(deltatime){
