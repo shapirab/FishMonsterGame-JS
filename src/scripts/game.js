@@ -100,6 +100,13 @@ export default class Game{
         });
     }
 
+    endGameOnTimer(deltatime){
+        this.gameTimer += deltatime;
+        if(this.gameTimer >= this.maxGameTimer){
+            this.gameOver = true;
+        }
+    }
+
     update(deltatime){
         this.handleInputs();
         this.handleEnemiesCollisionWithProjectiles();
@@ -112,7 +119,9 @@ export default class Game{
         this.enemies.forEach(enemy => {
             enemy.update();
         });
-        this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);       
+        this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
+        
+        this.endGameOnTimer(deltatime);
     }
 
     draw(ctx){
