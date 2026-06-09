@@ -17,6 +17,11 @@ export default class Game{
         this.enemyTimer = 0;
         this.enemyInterval = 1500;
         this.ui = new UI(this);
+        this.score = 0;
+
+        this.gameOver = false;
+        this.gameTimer = 0;
+        this.maxGameTimer = 25000;
     }
 
     handleInputs(){
@@ -37,9 +42,9 @@ export default class Game{
             this.player.speed.y = 0;
         }
 
-        if(this.input.keys.space.pressed){
-            this.player.shoot();
-        }
+        // if(this.input.keys.space.pressed){
+        //     this.player.shoot();
+        // }
     }
 
     addEnemy(deltatime){
@@ -69,7 +74,12 @@ export default class Game{
         this.enemies.forEach(enemy => {
             this.player.projectiles.forEach(projectile => {
                 if(this.collisionDetector.rectCollisionDetector(enemy, projectile)){
-                    enemy.markedForDeletion = true;
+                    this.score += enemy.score;
+                    enemy.lives--;
+                    projectile.markedForDeletion = true;
+                    if(enemy.lives <= 0){
+                        enemy.markedForDeletion = true;
+                    }
                 }
             });
         });
@@ -79,6 +89,13 @@ export default class Game{
         this.enemies.forEach(enemy => {
             if(this.collisionDetector.rectCollisionDetector(this.player, enemy)){
                 console.log('Player was damaged!');
+                enemy.markedForDeletion = true;
+                if(this.score <= 0){
+                    this.gameOver = true;
+                }
+                if(!this.gameOver){
+                    this.score -= enemy.lives;
+                }
             }
         });
     }
@@ -95,8 +112,7 @@ export default class Game{
         this.enemies.forEach(enemy => {
             enemy.update();
         });
-        this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);
-        this.score = 0;
+        this.enemies = this.enemies.filter(enemy => !enemy.markedForDeletion);       
     }
 
     draw(ctx){

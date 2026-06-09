@@ -35,6 +35,7 @@ export default class InputHandler{
                     break;
                 case ' ':
                     this.keys.space.pressed = true;
+                    this.game.player.shoot();
                     break;
                 case 'd':
                         this.game.debug = !this.game.debug;

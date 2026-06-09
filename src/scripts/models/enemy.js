@@ -45,6 +45,9 @@ export class Angler_1 extends Enemy {
     this.height = 169;
     let percentageY = 0.95;
     this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+
+    this.lives = 3;
+    this.score = this.lives;
   }
 }
 
@@ -60,6 +63,9 @@ export class Angler_2 extends Enemy {
     this.height = 165;
     let percentageY = 0.95;
     this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+
+    this.lives = 3;
+    this.score = this.lives;
   }
 }
 
@@ -75,5 +81,8 @@ export class LuckyFish extends Enemy {
     this.height = 95;
     let percentageY = 0.95;
     this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+
+    this.lives = 3;
+    this.score = this.lives;
   }
 }

@@ -15,7 +15,9 @@ window.addEventListener('load', () => {
         lastTime = timeStemp;
         game.update(deltatime);
         game.draw(ctx);
-        requestAnimationFrame(animate);
+        if(!game.gameOver){
+            requestAnimationFrame(animate);
+        }
     }
 
     animate(0);
