@@ -14,12 +14,39 @@ img{
     display: none;
 }
 
+.btn--position{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn{
+    border: none;
+    padding: 2rem 5rem;
+    font-size: 3rem;
+    border-radius: 10px;
+}
+
+.btn--primary{
+    background-color: rgb(57, 88, 245);
+    color: #fff;
+}
+
 .container{
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.hidden{
+    display: none;
+}
+
+.show{
+    display: block;
 }
 
 #main-canvas{
