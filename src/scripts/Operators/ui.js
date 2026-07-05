@@ -14,6 +14,7 @@ export default class UI {
         ctx.shadowOffsetY = 1;
         ctx.shadowColor = 'black';
         ctx.fillText(`Score: ${this.game.score}`, 20, 30);
+        ctx.fillText(`Timer: ${(this.game.gameTimer / 1000).toFixed()}`, 20, 60);
         if(this.game.gameOver){
             let endFontSize = 70;
             let endFontColor = 'black';
