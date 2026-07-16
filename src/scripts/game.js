@@ -42,9 +42,12 @@ export default class Game {
       this.player.speed.y = 0;
     }
 
-    // if(this.input.keys.space.pressed){
-    //     this.player.shoot();
-    // }
+    if(this.input.keys.space.pressed){
+      if(this.powerShoot){
+        this.player.powerShoot();
+      }
+      this.player.shoot();
+    }
   }
 
   addEnemy(deltatime) {
