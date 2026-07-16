@@ -35,6 +35,9 @@ export default class InputHandler{
                     break;
                 case ' ':
                     this.keys.space.pressed = true;
+                    if(this.game.powerShoot){
+                        this.game.player.powerShoot();
+                    }
                     this.game.player.shoot();
                     break;
                 case 'd':

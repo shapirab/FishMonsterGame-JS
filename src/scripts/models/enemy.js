@@ -40,6 +40,7 @@ export class Angler_1 extends Enemy {
     this.maxFrames = 37;
     this.frameY = Math.floor(Math.random() * 3);
 
+    this.type = 'regular';
 
     this.width = 228;
     this.height = 169;
@@ -58,13 +59,14 @@ export class Angler_2 extends Enemy {
     this.maxFrames = 37;
     this.frameY = Math.floor(Math.random() * 2);
 
+    this.type = 'regular';
 
     this.width = 213;
     this.height = 165;
     let percentageY = 0.95;
     this.position.y = Math.random() * (this.game.height * percentageY - this.height);
 
-    this.lives = 3;
+    this.lives = 4;
     this.score = this.lives;
   }
 }
@@ -76,6 +78,7 @@ export class LuckyFish extends Enemy {
     this.maxFrames = 37;
     this.frameY = Math.floor(Math.random() * 2);
 
+    this.type = 'lucky';
 
     this.width = 99;
     this.height = 95;

@@ -30,6 +30,14 @@ export default class Player{
         this.projectiles.push(new Projectile(this.game, projectilePosition));
     }
 
+    powerShoot(){
+        let projectilePowerPosition = {
+            x: this.position.x + this.width / 2,
+            y: this.position.y + this.height
+        }
+        this.projectiles.push(new Projectile(this.game, projectilePowerPosition));
+    }
+
     clearProjectiles(){
         this.projectiles.forEach((projectile, index) => {
             if(projectile.markedForDeletion){

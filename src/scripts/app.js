@@ -18,10 +18,8 @@ window.addEventListener('load', () => {
     });
 
     function displayRestartBtn(){
-        console.log('app::displayRestartBtn')
         restartButton.classList.remove('hidden');
         restartButton.classList.add('show');;
-        console.log(restartButton)
     }
     function hideRestartBtn(){
         restartButton.classList.remove('show');
