@@ -1,6 +1,6 @@
 import CollisionDetector from "./models/effectModels/collision.js";
 import Projectile from "./models/effectModels/projectile.js";
-import { Angler_1, Angler_2, LuckyFish } from "./models/enemy.js";
+import { Angler_1, Angler_2, Drone, HiveWhale, LuckyFish } from "./models/enemy.js";
 import Player from "./models/player.js";
 import InputHandler from "./Operators/input.js";
 import UI from "./Operators/ui.js";
@@ -61,11 +61,14 @@ export default class Game {
 
   pushNewEnemy() {
     let chance = Math.random();
-    if (chance < 0.4) {
+    if (chance < 0.3) {
       this.enemies.push(new Angler_1(this));
-    } else if (chance < 0.8) {
+    } else if (chance < 0.6) {
       this.enemies.push(new Angler_2(this));
-    } else {
+    } else if(chance < 0.8){
+      this.enemies.push(new HiveWhale(this));
+    }
+    else {
       this.enemies.push(new LuckyFish(this));
     }
   }
@@ -82,10 +85,25 @@ export default class Game {
             if (enemy.type === "lucky") {
               this.powerShoot = true;
             }
+            else if(enemy.type === 'hive'){
+              console.log('game::handleEnemiesCollisionWithProjectiles(). Enemy is hive. Drones are created. ', enemy.type);
+              this.createDrones(enemy);
+            }
           }
         }
       });
     });
+  }
+
+  createDrones(enemy){
+    let numDrones = 5;
+    for(let i = 0; i < numDrones; i++){
+      let dronePosition = {
+        x: enemy.position.x + Math.random() * enemy.width,
+        y: enemy.position.y + (Math.random() * enemy.height) / 2,
+      };
+      this.enemies.push(new Drone(this, dronePosition));
+    }
   }
 
   handlePlayerCollisionWithEnemy() {
@@ -141,6 +159,7 @@ export default class Game {
       enemy.update();
     });
     this.enemies = this.enemies.filter((enemy) => !enemy.markedForDeletion);
+    this.player.projectiles = this.player.projectiles.filter((projectile) => !projectile.markedForDeletion);
 
     this.setPowerShoot(deltatime);
 

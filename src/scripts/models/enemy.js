@@ -71,6 +71,48 @@ export class Angler_2 extends Enemy {
   }
 }
 
+export class HiveWhale extends Enemy {
+   constructor(game) {
+    super(game);
+    this.image = hivewhale_EnemyImg;
+    this.maxFrames = 37;
+    this.frameY = Math.floor(Math.random() * 2);
+
+    this.type = 'hive';
+
+    this.width = 400;
+    this.height = 227;
+    let percentageY = 0.95;
+    this.position.y = Math.random() * (this.game.height * percentageY - this.height);
+
+    this.speedX = Math.random() * - 1 - 0.2;
+
+    this.lives = 15;
+    this.score = this.lives;
+  }
+}
+
+export class Drone extends Enemy {
+  constructor(game, position){
+    super(game);
+    this.image = drone_EnemyImg;
+    this.maxFrame = 37;
+    this.frameY = Math.floor(Math.random() * 2);
+
+    this.type = 'drone';
+
+    this.width = 115;
+    this.height = 95;
+
+    this.position.x = position.x;
+    this.position.y = position.y;
+
+    this.speedX = Math.random() * - 4.2 - 0.5;
+    this.lives = 2;
+    this.score = this.lives;
+  }
+}
+
 export class LuckyFish extends Enemy {
   constructor(game) {
     super(game);
