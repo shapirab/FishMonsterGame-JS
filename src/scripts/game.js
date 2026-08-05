@@ -2,6 +2,7 @@ import CollisionDetector from "./models/effectModels/collision.js";
 import Projectile from "./models/effectModels/projectile.js";
 import { Angler_1, Angler_2, Drone, HiveWhale, LuckyFish } from "./models/enemy.js";
 import Player from "./models/player.js";
+import AudioController from "./Operators/audioController.js";
 import InputHandler from "./Operators/input.js";
 import UI from "./Operators/ui.js";
 
@@ -12,6 +13,7 @@ export default class Game {
     this.player = new Player(this);
     this.input = new InputHandler(this);
     this.collisionDetector = new CollisionDetector();
+    this.audioController = new AudioController();
 
     this.enemies = [];
     this.enemyTimer = 0;
@@ -80,13 +82,15 @@ export default class Game {
           this.score += enemy.score;
           enemy.lives--;
           projectile.markedForDeletion = true;
+          this.audioController.explosion();
+
           if (enemy.lives <= 0) {
             enemy.markedForDeletion = true;
             if (enemy.type === "lucky") {
               this.powerShoot = true;
+              this.audioController.powerUp();
             }
             else if(enemy.type === 'hive'){
-              console.log('game::handleEnemiesCollisionWithProjectiles(). Enemy is hive. Drones are created. ', enemy.type);
               this.createDrones(enemy);
             }
           }
@@ -126,6 +130,7 @@ export default class Game {
       if(this.powerTimer > this.maxPowerTimer){
         this.powerTimer = 0;
         this.powerShoot = false;
+        this.audioController.powerDown();
       }
     }
   }

@@ -19,7 +19,7 @@ export default class Player{
         this.image = playerImg;
         this.frameX = 0;
         this.frameY = 0;
-        this.maxFrame = 37;    
+        this.maxFrame = 37;  
     }
 
     shoot(){
@@ -28,6 +28,7 @@ export default class Player{
             y: this.position.y
         }
         this.projectiles.push(new Projectile(this.game, projectilePosition));
+        this.game.audioController.shot();
     }
 
     powerShoot(){
